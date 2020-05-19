@@ -1,0 +1,39 @@
+{% load static i18n compress %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    {% block styles %}
+        {% compress css %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+        {% endcompress %}
+    {% endblock %}
+    <title>{% block title %}Diplom{% endblock %}</title>
+</head>
+<body>
+<div class="header">
+    <span>pentest.hach.dev</span>
+</div>
+<div class="content">
+    <div class="aside">
+        <span class="aside__item">
+            <a href="/vulns-scan/all">Сканирование на уязвимости</a>
+        </span>
+        <span class="aside__item">
+            <a href="/profile">Профиль</a>
+        </span>
+        <span class="aside__item">
+            <a href="/tariff">Тарифы</a>
+        </span>
+    </div>
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>
+
