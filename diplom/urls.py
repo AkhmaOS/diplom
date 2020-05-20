@@ -18,10 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from diplom.views import LandingPageView, BaseView
+
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
     path('admin/', admin.site.urls),
-    path('vulns-scan/', include('vulns-scan.urls'))
+    path('', LandingPageView.as_view()),
+    path('vulns-scan/', include('vulns-scan.urls')),
+
 ]
 
 if bool(settings.DEBUG):

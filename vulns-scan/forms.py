@@ -1,11 +1,14 @@
-from material_widgets import forms as material_forms
 from django import forms
+from material_widgets.forms import MaterialModelForm
+
+from diplom.forms import FormFieldMixin
 from .models import VulnScanModel
 
 
-class PentestScanForm(material_forms.MaterialModelForm):
-    site_ip = forms.GenericIPAddressField(widget=material_forms.MaterialTextInput)
-    name = forms.CharField(required=True, widget=material_forms.MaterialTextInput)
+class VulnScanForm(FormFieldMixin, MaterialModelForm):
+    site_ip = forms.GenericIPAddressField()
+    name = forms.CharField(required=True)
+
     class Meta:
         model = VulnScanModel
-        fields = ('name', 'site_ip', 'scan_type',)
+        fields = ('name', 'site_ip')

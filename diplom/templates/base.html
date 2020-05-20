@@ -6,7 +6,11 @@
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png"
+          href="https://www.hamiltoninn-ny.com/wp-content/uploads/2018/02/cropped-hamilton-inn-logo-v2-favicon-h-150x150.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono|Material+Icons">
     {% block styles %}
         {% compress css %}
             <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
@@ -15,25 +19,61 @@
     <title>{% block title %}Diplom{% endblock %}</title>
 </head>
 <body>
-<div class="header">
-    <span>pentest.hach.dev</span>
-</div>
-<div class="content">
-    <div class="aside">
-        <span class="aside__item">
-            <a href="/vulns-scan/all">Сканирование на уязвимости</a>
-        </span>
-        <span class="aside__item">
-            <a href="/profile">Профиль</a>
-        </span>
-        <span class="aside__item">
-            <a href="/tariff">Тарифы</a>
-        </span>
+<header class="mdc-top-app-bar app-bar">
+    <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start app-bar-section">
+            <span class="mdc-top-app-bar__title app-bar__item">Pentest</span>
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-center app-bar-section">
+            <a href="http://hach.dev/">
+                <div class="mdc-top-app-bar__title app-bar__item-startup">
+                    <span class="app-bar__item-startup-item">hach</span>
+                    <span class="app-bar__item-startup-item app-bar__item-startup-item-dot">.</span>
+                    <span class="app-bar__item-startup-item">dev</span>
+                </div>
+            </a>
+        </section>
+
     </div>
-    <div class="main">
-        {% block content %}{% endblock %}
+</header>
+<aside class="mdc-drawer mdc-drawer mdc-top-app-bar--fixed-adjust">
+    <div class="mdc-drawer__header aside-header__title">
+        <h3 class="mdc-drawer__title">{{ request.user.username }}</h3>
+        <h6 class="mdc-drawer__subtitle">{{ request.user }}</h6>
     </div>
+    <div class="mdc-drawer__content">
+        <div class="mdc-list">
+            <a href="#" aria-current="page"
+               class="mdc-list-item {% if request.resolver_match.url_name == '#' %}mdc-list-item--activated{% endif %}">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>
+                <span class="mdc-list-item__text">Account</span>
+            </a>
+            <a href="{% url 'vulns-scan-scan' %}" aria-current="page"
+               class="mdc-list-item {% if request.resolver_match.url_name == 'vulns-scan-scan' %}mdc-list-item--activated{% endif %}">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">bug_report</i>
+                <span class="mdc-list-item__text">Vulnerability Scan</span>
+            </a>
+            <a class="mdc-list-item" href="#">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">videocam</i>
+                <span class="mdc-list-item__text">IP-Cams Scan</span>
+            </a>
+            <a class="mdc-list-item" href="#">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">not_listed_location</i>
+                <span class="mdc-list-item__text">Whois ip</span>
+            </a>
+        </div>
+    </div>
+</aside>
+
+<div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust">
+    <main class="main-content">
+        {% block content %} {% endblock %}
+    </main>
 </div>
+
+{% compress js %}
+    <script src="{% static 'vendor/material/auto-init/autoInit.min.js' %}"></script>
+{% endcompress %}
 </body>
 </html>
 
