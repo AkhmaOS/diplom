@@ -1,0 +1,21 @@
+{% load static compress %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% compress css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'landing/css/landing.css' %}">
+    {% endcompress %}
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>Diplom</title>
+</head>
+<body>
+<div class="content-landing">
+    <div class="content-landing__title">
+        <a href="/vulns-scan/" class="content-landing__title-h1">Wellcome</a>
+    </div>
+</div>
+
+</body>
+</html>

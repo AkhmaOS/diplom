@@ -1,0 +1,95 @@
+.formfield {
+  margin: 20px 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.formfield input[type='text'],
+.formfield input[type='number'],
+.formfield input[type='email'],
+.formfield input[type='tel'],
+.formfield input[type='password'],
+.formfield input[type='datetime-local'],
+.formfield input[type='date'],
+.formfield textarea,
+.formfield select {
+  width: 100%;
+  max-width: 467px;
+  font-size: 18px;
+  border: 1px solid #DEDEDE;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #F4F6F7;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.formfield select {
+  height: 64px;
+}
+
+.formfield input[type='file'] {
+  width: 100%;
+  max-width: 467px;
+  font-size: 16px;
+  border: 2px dashed #DEDEDE;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background: #F4F6F7;
+  display: block;
+  padding: 20px;
+  margin-top: 0.5em;
+}
+
+.formfield textarea {
+  width: 100%;
+  max-width: 467px;
+  font-size: 18px;
+  border: 1px solid #DEDEDE;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #F4F6F7;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.formfield .helptext {
+  color: rgba(0, 0, 0, .6);
+  -webkit-font-smoothing: antialiased;
+  font-size: .75rem;
+  font-weight: 400;
+  letter-spacing: .0333333333em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  display: block;
+  margin: 10px 5px;
+  max-width: 370px;
+}
+
+.formfield.formfield--error input[type='text'],
+.formfield.formfield--error input[type='number'],
+.formfield.formfield--error input[type='email'],
+.formfield.formfield--error input[type='tel'],
+.formfield.formfield--error input[type='password'],
+.formfield.formfield--error input[type='datetime-local'],
+.formfield.formfield--error input[type='date'],
+.formfield.formfield--error textarea,
+.formfield.formfield--error select {
+  border: 2px solid var(--mdc-color-red-500, #F44336);
+}
+
+ul.errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 12px 5px;
+}
+
+.errorlist {
+  font-size: 12px;
+  color: var(--mdc-color-red-500, #F44336);
+}
+
+.formfield.hidden {
+  display: none !important;
+}
