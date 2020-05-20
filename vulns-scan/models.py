@@ -7,27 +7,14 @@ User = get_user_model()
 
 
 class VulnScanModel(models.Model):
-    SITE_SCAN = 'Сканирование сетки'
-    DIRECTORY_BRUTEFORCE = 'Брут  директорий'
-    DOS_ATTACK = 'DOS атака'
-    VULNERABILITY_SCAN = 'Сканирование на уязвимости'
-
-    SCAN_TYPE = (
-        ('', 'Вектор атаки'),
-        (SITE_SCAN, 'Сканирование сетки'),
-        (DIRECTORY_BRUTEFORCE, 'Брут  директорий'),
-        (DOS_ATTACK, 'DOS атака'),
-        (VULNERABILITY_SCAN, 'Сканирование на уязвимости')
-    )
-
     slug = models.SlugField(verbose_name='URL', max_length=50, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', )
-    name = models.CharField(max_length=250, blank=True, unique=True, verbose_name='название теста')
-    site_ip = models.CharField(max_length=32, blank=True, verbose_name='ip сайта')
-    scan_type = models.CharField(choices=SCAN_TYPE, max_length=250, blank=True, verbose_name='вектор атаки')
+    name = models.CharField('Название', max_length=250, blank=True, unique=True)
+    site_ip = models.CharField('IP-адрес', max_length=32, blank=True)
 
-    city = models.CharField(max_length=250, blank=True, verbose_name='город')
-    vulns = models.TextField(blank=True, verbose_name='Уязвимости')
+    # nullable data
+    city = models.CharField('city', max_length=250, blank=True, null=True, default=None)
+    vulns = models.TextField('Уязвимости', blank=True, null=True, default=None)
 
     class Meta:
         verbose_name = 'Vuln Scan'
@@ -42,4 +29,4 @@ class VulnScanModel(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('vulns-scan-result', kwargs={'slug':self.slug})
+        return reverse('vulns-scan-result', kwargs={'slug': self.slug})
