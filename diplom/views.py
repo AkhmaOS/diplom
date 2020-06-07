@@ -2,7 +2,7 @@ from django.views.generic import TemplateView, ListView
 
 
 class LandingPageView(TemplateView):
-    template_name = 'landing/landing.html'
+    template_name = 'landing.html'
     http_method_names = ['get', 'options']
 
 

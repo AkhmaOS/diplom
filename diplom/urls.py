@@ -25,6 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPageView.as_view()),
     path('vulns-scan/', include('vulns-scan.urls')),
+    # path('accounts/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
 
 ]
 

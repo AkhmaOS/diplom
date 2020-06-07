@@ -5,7 +5,7 @@ from django.views.generic import CreateView, ListView, DetailView, TemplateView
 
 from diplom import settings
 from .forms import VulnScanForm
-from .models import VulnScanModel
+from .models import VulnScanModel, CveScanModel
 
 api = shodan.Shodan(settings.SHODAN_API_KEY)
 
@@ -20,9 +20,30 @@ class VulnScanView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         form.instance.name = form.cleaned_data['name']
         form.instance.site_ip = form.cleaned_data['site_ip']
+
+        # api callback
         shodan_api = api.host(form.cleaned_data['site_ip'])
         form.instance.city = shodan_api['city']
-        form.instance.vulns = shodan_api['vulns']
+        form.instance.site_title = shodan_api['isp']
+
+        form.instance.org = shodan_api['org']
+        form.instance.ports = shodan_api['ports']
+        form.instance.country_name = shodan_api['country_name']
+
+        # api smt don't back vulns
+        if 'cve' in shodan_api:
+            for cve in shodan_api['cve']:
+                form_cve = CveScanModel.objects.create(user=self.request.user, cve=cve)
+                form_cve.save()
+        # api smt don't back vulns
+        if 'vulns' in shodan_api:
+            for cve in shodan_api['vulns']:
+                form_cve = CveScanModel.objects.create(user=self.request.user, cve=cve)
+                form_cve.save()
+        # api smt don't back robots
+        if 'robots' in shodan_api:
+            form.instance.robots = shodan_api['robots']
+
         return super().form_valid(form)
 
 
@@ -35,7 +56,9 @@ class VulnScanResultView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         scan_result = VulnScanModel.objects.get(Q(user=self.request.user) & Q(name=self.kwargs['slug']))
         context['api'] = scan_result
+        context['cve'] = CveScanModel.objects.filter(user=self.request.user)
         return context
+
 
 class VulnScanAllView(LoginRequiredMixin, ListView):
     model = VulnScanModel
@@ -47,4 +70,3 @@ class VulnScanAllView(LoginRequiredMixin, ListView):
         scan_result = VulnScanModel.objects.filter(user=self.request.user)
         context['api'] = scan_result
         return context
-

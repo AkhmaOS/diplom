@@ -5,3 +5,5 @@ django-jet
 shodan
 django_compressor
 django-material-widgets
+djangorestframework
+django-allauth

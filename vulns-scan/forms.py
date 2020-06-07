@@ -5,7 +5,7 @@ from diplom.forms import FormFieldMixin
 from .models import VulnScanModel
 
 
-class VulnScanForm(FormFieldMixin, MaterialModelForm):
+class VulnScanForm(FormFieldMixin, forms.ModelForm):
     site_ip = forms.GenericIPAddressField()
     name = forms.CharField(required=True)
 

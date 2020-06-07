@@ -49,6 +49,7 @@ body {
     margin: 0;
     display: flex;
     height: 100vh;
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
 }
 
 .mdc-drawer-app-content {
@@ -57,12 +58,10 @@ body {
     position: relative;
 }
 
-.main-content {
+.content-main {
     padding: 104px 0 0 0;
     display: flex;
     justify-content: center;
-    overflow: auto;
-    height: 100%;
 }
 
 .app-bar {
